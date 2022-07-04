@@ -113,11 +113,6 @@ namespace Empresa.Presentation
                     MessageBox.Show("No puede letras");
                     return;
                 }
-                if(telefono.ToString().Length != 8)
-                {
-                    MessageBox.Show("El telefono solo puede tener 8 digitos");
-                    return;
-                }
                 var empleado = new EmpleadoViewModel()
                 {
                     Nombre = txtNombre.Text,

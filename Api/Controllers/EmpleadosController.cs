@@ -14,7 +14,7 @@ namespace Api.Controllers
         [HttpGet]
         public IHttpActionResult Get()
         {
-            List<EmpleadoViewModel> list;
+            List<EmpleadoViewModel> list = new List<EmpleadoViewModel>();
             using(EmpresaEntities db = new EmpresaEntities())
             {
                 list = db.Empleados.Select(e => new EmpleadoViewModel()
@@ -59,6 +59,8 @@ namespace Api.Controllers
         [HttpPost]
         public IHttpActionResult Add(EmpleadoViewModel empleado)
         {
+            if (empleado.Telefono.ToString().Length != 8 || empleado.FechaContratacion >= DateTime.Now)
+                return BadRequest("No es un model valido");
             if (!ModelState.IsValid)
                 return BadRequest("No es un modelo valido");
             using (EmpresaEntities db = new EmpresaEntities())
@@ -81,6 +83,9 @@ namespace Api.Controllers
         [HttpPut]
         public IHttpActionResult Update(EmpleadoViewModel model)
         {
+            if (model.Telefono.ToString().Length != 8 || model.FechaContratacion >= DateTime.Now)
+                return BadRequest("No es un model valido");
+
             if (!ModelState.IsValid)
                 return BadRequest("No es un modelo valido");
 
